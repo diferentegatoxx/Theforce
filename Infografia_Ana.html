@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis de la Salud en Colombia 2025: Un Diagnóstico Visual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-value {
+            font-weight: 900;
+            color: #FBB13C;
+        }
+        .kpi-label {
+            font-weight: 700;
+            color: #003554;
+        }
+        .section-title {
+            color: #006494;
+        }
+        .section-intro {
+            color: #0582CA;
+        }
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            header, footer {
+                display: none;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            section {
+                margin-bottom: 2rem !important;
+                padding: 1rem !important;
+            }
+            .bg-white, .bg-gray-50 {
+                box-shadow: none !important;
+                border: 1px solid #e5e7eb;
+            }
+            .grid {
+                 display: block;
+            }
+            .grid > * {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center my-8 md:my-16">
+            <h1 class="text-4xl md:text-6xl font-black section-title mb-4">CRISIS DE LA SALUD EN COLOMBIA</h1>
+            <p class="text-xl md:text-2xl font-bold text-gray-600">Un sistema en cuidados intensivos: Diagnóstico de un colapso anunciado</p>
+        </header>
+
+        <section id="colapso-financiero" class="mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-2 section-title">1. El Colapso Financiero</h2>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 section-intro">El sistema está en quiebra. Una subfinanciación crónica ha creado un déficit insostenible, llevando a la insolvencia generalizada y a una deuda que asfixia a hospitales y clínicas.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+                <div class="bg-white rounded-lg shadow-md p-6 text-center mb-8">
+                    <p class="text-6xl md:text-7xl kpi-value">107.8%</p>
+                    <p class="text-xl kpi-label mt-2">Siniestralidad Promedio</p>
+                    <p class="mt-4 text-gray-600">Por cada $100 que ingresan para cubrir servicios, el sistema gasta casi $108. Una pérdida operativa estructural.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 text-center mb-8">
+                    <p class="text-6xl md:text-7xl kpi-value">$32B</p>
+                    <p class="text-xl kpi-label mt-2">Deuda Total Acumulada</p>
+                    <p class="mt-4 text-gray-600">Una cifra astronómica que paraliza a los prestadores de servicios. El 75% de esta deuda se concentra en EPS intervenidas por el Estado.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 text-center mb-8">
+                     <p class="text-6xl md:text-7xl kpi-value">10.9%</p>
+                    <p class="text-xl kpi-label mt-2">Población en EPS Solventes</p>
+                    <p class="mt-4 text-gray-600">Más de 44 millones de colombianos están afiliados a aseguradoras que no cumplen con los requisitos financieros para operar.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-center mb-4 kpi-label">Déficit de Financiación: La Brecha de la UPC</h3>
+                    <p class="text-center text-gray-600 mb-4">El aumento de la UPC para 2025 fue insuficiente para cubrir los costos reales, creando un déficit proyectado de $10.6 billones.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="upcChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-center mb-4 kpi-label">Crecimiento de la Deuda del Sistema</h3>
+                     <p class="text-center text-gray-600 mb-4">La deuda con hospitales y clínicas se ha más que duplicado en solo dos años, demostrando la velocidad del colapso.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="debtChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impacto-humano" class="mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-2 section-title">2. El Rostro Humano de la Crisis</h2>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 section-intro">La crisis financiera se traduce en sufrimiento. Millones de ciudadanos enfrentan barreras insuperables para acceder a la atención, negando en la práctica el derecho a la salud.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-center mb-4 kpi-label">Explosión de Quejas Ciudadanas (2022-2024)</h3>
+                    <p class="text-center text-gray-600 mb-4">La imposibilidad de acceder a servicios básicos ha disparado las quejas ante la Defensoría del Pueblo.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="complaintsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center items-center text-center mb-8">
+                    <p class="text-7xl md:text-8xl kpi-value">75.7%</p>
+                    <p class="text-2xl kpi-label mt-2">Aumento General de Quejas</p>
+                    <p class="mt-4 text-gray-600 max-w-sm">Este incremento entre 2022 y 2024 refleja un sistema que ha dejado de responder a sus usuarios.</p>
+                    <div class="mt-8">
+                        <p class="text-6xl">🗓️</p>
+                        <p class="text-gray-600 mt-2">Pacientes han esperado hasta <span class="font-bold text-2xl kpi-value">250</span> días por sus medicamentos.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h3 class="text-xl font-bold text-center mb-6 kpi-label">El Círculo Vicioso del Colapso</h3>
+                <div class="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="text-center p-4 rounded-lg bg-blue-50 border border-blue-200">
+                        <p class="text-4xl mb-2">💸</p>
+                        <h4 class="font-bold text-blue-800">Crisis Financiera</h4>
+                        <p class="text-sm text-blue-700">Insolvencia de EPS y falta de pago a IPS.</p>
+                    </div>
+                    <div class="text-5xl font-bold text-blue-400 transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center p-4 rounded-lg bg-yellow-50 border border-yellow-300">
+                        <p class="text-4xl mb-2">🚫</p>
+                        <h4 class="font-bold text-yellow-800">Negación de Servicios</h4>
+                        <p class="text-sm text-yellow-700">Barreras de acceso a citas, medicamentos y cirugías.</p>
+                    </div>
+                    <div class="text-5xl font-bold text-yellow-400 transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center p-4 rounded-lg bg-red-50 border border-red-200">
+                        <p class="text-4xl mb-2">⚖️</p>
+                        <h4 class="font-bold text-red-800">Crisis Ciudadana</h4>
+                        <p class="text-sm text-red-700">Aumento de quejas, tutelas y sufrimiento humano.</p>
+                    </div>
+                     <div class="text-5xl font-bold text-red-400 transform md:rotate-0 rotate-90">→</div>
+                     <div class="text-center p-4 rounded-lg bg-gray-100 border border-gray-300">
+                        <p class="text-4xl mb-2">🌀</p>
+                        <h4 class="font-bold text-gray-800">Más Presión</h4>
+                        <p class="text-sm text-gray-700">Costos legales y administrativos aceleran el colapso.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="decreto" class="mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-2 section-title">3. Decreto 0858: ¿Solución o Acelerante?</h2>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 section-intro">La respuesta del gobierno es una reforma institucional radical que, según todos los expertos, ignora la emergencia financiera y podría generar un caos operativo mayor.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-center mb-6 kpi-label">El Nuevo Modelo Propuesto</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-100 rounded-lg text-center">
+                            <h4 class="font-bold text-blue-900">MINISTERIO DE SALUD</h4>
+                            <p class="text-sm text-blue-800">Gran rector y planificador central</p>
+                        </div>
+                        <div class="text-center text-2xl text-blue-500">▼</div>
+                        <div class="p-4 bg-blue-100 rounded-lg text-center">
+                            <h4 class="font-bold text-blue-900">ENTIDADES TERRITORIALES</h4>
+                            <p class="text-sm text-blue-800">Conforman y gestionan las redes de salud (RIITS)</p>
+                        </div>
+                        <div class="text-center text-2xl text-blue-500">▼</div>
+                        <div class="p-4 bg-blue-100 rounded-lg text-center">
+                            <h4 class="font-bold text-blue-900">CAPS (Centros de Atención Primaria)</h4>
+                            <p class="text-sm text-blue-800">Puerta de entrada obligatoria para los ciudadanos</p>
+                        </div>
+                        <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-400 rounded-r-lg">
+                            <h4 class="font-bold text-yellow-900">¿Y las EPS?</h4>
+                            <p class="text-sm text-yellow-800">Pasan a ser "gestoras" administrativas. Pierden su rol de organizar la red y gestionar el riesgo financiero, pero mantienen la responsabilidad legal frente al afiliado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-center mb-6 kpi-label">El Abismo: Gobierno vs. Consenso Técnico</h3>
+                    <p class="text-center text-gray-600 mb-4">Existe una fractura total entre la visión del Gobierno y la de los expertos que operan el sistema.</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tema Crítico</th>
+                                    <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Postura del Gobierno</th>
+                                    <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Consenso Técnico (Gremios/Expertos)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs font-medium text-gray-900">Legalidad</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-500">Es legal, desarrolla la ley.</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-red-600 font-bold">Inconstitucional. "Reforma por la puerta de atrás".</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs font-medium text-gray-900">Financiación</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-500">Se usará el presupuesto existente.</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-red-600 font-bold">Mandato sin fondos. Ignora la deuda y el déficit.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs font-medium text-gray-900">Gobernanza</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-500">Fortalece al Estado y los territorios.</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-red-600 font-bold">Genera caos, riesgo de politización y corrupción.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs font-medium text-gray-900">Impacto Real</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-500">Mejorará el acceso y la prevención.</td>
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-red-600 font-bold">"Salto al vacío" que agravará las barreras de acceso.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recomendaciones" class="mb-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-2 section-title">4. La Encrucijada: Salidas a la Crisis</h2>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 section-intro">Se requiere una respuesta en dos fases: una acción de emergencia para evitar el colapso total y una reforma estructural consensuada para construir una solución sostenible.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 border-t-4 border-yellow-400 mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-600">NIVEL 1: Mitigación de Emergencia (Urgente)</h3>
+                    <ul class="space-y-4 list-disc list-inside text-gray-700">
+                        <li><span class="font-bold">Inyección de Liquidez:</span> Crear un "Fondo de Salvamento" para evitar el cierre masivo de hospitales y clínicas.</li>
+                        <li><span class="font-bold">Recalcular la UPC:</span> Convocar una comisión técnica independiente para ajustar la UPC a los costos reales del sistema.</li>
+                        <li><span class="font-bold">Suspender el Decreto 0858:</span> Decretar una moratoria para no añadir más inestabilidad a un sistema al borde del abismo.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 border-t-4 border-blue-500 mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-700">NIVEL 2: Reforma Estructural (Mediano Plazo)</h3>
+                    <ul class="space-y-4 list-disc list-inside text-gray-700">
+                        <li><span class="font-bold">Acuerdo Nacional por la Salud:</span> Convocar a todos los actores (gobierno, gremios, pacientes) para construir una reforma viable.</li>
+                        <li><span class="font-bold">Reforma Basada en Evidencia:</span> Exigir que cualquier cambio esté soportado por modelación financiera y programas piloto.</li>
+                        <li><span class="font-bold">Vía Legislativa:</span> Tramitar la reforma en el Congreso, el escenario democrático y constitucional para un cambio de esta magnitud.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-4 mt-8 bg-gray-800 text-white">
+        <p>Infografía basada en el análisis "Crisis y Encrucijada" sobre la situación del sistema de salud colombiano en 2025.</p>
+        <p class="text-sm text-gray-400 mt-1">Generado por Canvas Infographics. Los datos son representaciones visuales del informe fuente.</p>
+    </footer>
+
+    <script>
+        const wrapLabel = (label) => {
+            const maxLength = 16;
+            if (label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).length > maxLength) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = currentLine ? currentLine + ' ' + word : word;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        };
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#003554',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#0582CA' },
+                    grid: { color: '#e0e0e0' }
+                },
+                x: {
+                    ticks: { color: '#0582CA' },
+                    grid: { display: false }
+                }
+            },
+            animation: {
+                onComplete: () => {
+                    window.dispatchEvent(new Event('chart-rendered'));
+                }
+            }
+        };
+        
+        const upcData = {
+            labels: ['Incremento Requerido (Técnico)', 'Incremento Decretado (Gobierno)'],
+            datasets: [{
+                label: 'Porcentaje de Aumento de la UPC 2025',
+                data: [16.9, 9.54],
+                backgroundColor: ['#00A6FB', '#FBB13C'],
+                borderColor: ['#006494', '#f59e0b'],
+                borderWidth: 1
+            }]
+        };
+        new Chart(document.getElementById('upcChart'), {
+            type: 'bar',
+            data: upcData,
+            options: { ...commonChartOptions }
+        });
+
+        const debtData = {
+            labels: ['2023', 'Cierre 2024', 'Mediados 2025'],
+            datasets: [{
+                label: 'Deuda Acumulada (en Billones COP)',
+                data: [14, 18.9, 32],
+                fill: true,
+                backgroundColor: 'rgba(0, 166, 251, 0.2)',
+                borderColor: '#00A6FB',
+                tension: 0.1
+            }]
+        };
+        new Chart(document.getElementById('debtChart'), {
+            type: 'line',
+            data: debtData,
+            options: { ...commonChartOptions }
+        });
+
+        const complaintsData = {
+            labels: [wrapLabel('Demora en entrega de medicamentos'), wrapLabel('Falta de citas con especialistas')],
+            datasets: [
+                {
+                    label: 'Quejas 2022',
+                    data: [2123, 4262],
+                    backgroundColor: '#0582CA',
+                },
+                {
+                    label: 'Quejas 2024',
+                    data: [5284, 9349],
+                    backgroundColor: '#FBB13C',
+                }
+            ]
+        };
+        new Chart(document.getElementById('complaintsChart'), {
+            type: 'bar',
+            data: complaintsData,
+            options: { ...commonChartOptions, indexAxis: 'y' }
+        });
+
+    </script>
+</body>
+</html>
+
